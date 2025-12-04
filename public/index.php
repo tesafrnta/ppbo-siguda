@@ -20,7 +20,7 @@ try {
 }
 
 // STEP 3: Load path config (untuk $base_url)
-require_once __DIR__ . '/../Config/path.php';
+require_once __DIR__ . '/../config/path.php';
 
 // STEP 4: Import classes yang dibutuhkan
 use Config\Database;
