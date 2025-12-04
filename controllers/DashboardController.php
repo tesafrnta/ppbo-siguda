@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 
-use Config\Database;
+use config\Database;
 use Models\Produk;
 use Models\TransaksiMasuk;
 use Models\TransaksiKeluar;

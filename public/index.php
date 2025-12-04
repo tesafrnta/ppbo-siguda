@@ -23,8 +23,8 @@ try {
 require_once __DIR__ . '/../config/path.php';
 
 // STEP 4: Import classes yang dibutuhkan
-use Config\Database;
-use Models\Admin;
+use config\Database;
+use models\Admin;
 
 // Jika sudah login, Atur return tampilan berdasarkan request
 if (isset($_SESSION['user_id'])) {

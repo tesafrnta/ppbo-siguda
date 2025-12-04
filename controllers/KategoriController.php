@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 
-use Config\Database;
+use config\Database;
 use Models\Kategori;
 
 $database = new Database();
