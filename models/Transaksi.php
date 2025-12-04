@@ -31,14 +31,17 @@ abstract class Transaksi {
     // Insert ke database
     protected function insertToDatabase() {
         $query = "INSERT INTO " . $this->table . " 
-                SET id_produk=:id_produk, jenis_transaksi=:jenis_transaksi, 
-                    jumlah=:jumlah, tanggal=:tanggal, keterangan=:keterangan";
+                (id_produk, jenis_transaksi, jumlah, tanggal, keterangan)
+                VALUES (:id_produk, :jenis_transaksi, :jumlah, :tanggal, :keterangan)";
+
         $stmt = $this->conn->prepare($query);
+
         $stmt->bindParam(':id_produk', $this->id_produk);
         $stmt->bindParam(':jenis_transaksi', $this->jenis_transaksi);
         $stmt->bindParam(':jumlah', $this->jumlah);
         $stmt->bindParam(':tanggal', $this->tanggal);
         $stmt->bindParam(':keterangan', $this->keterangan);
+
         return $stmt->execute();
     }
 
