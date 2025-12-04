@@ -32,269 +32,177 @@ $low_stock_data = $stmt_low ? $stmt_low->fetchAll(PDO::FETCH_ASSOC) : [];
 ?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - SIGUDA PPBO</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
-    <style>
-        /* ===== BACKGROUND PUTIH + TEKSTUR WARNA #255 ===== */
-        body {
-            background: #ffffff;
-            font-family: 'Poppins', sans-serif;
-            background-image:
-                radial-gradient(circle at 20% 30%, rgba(0, 85, 85, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 80% 70%, rgba(0, 85, 85, 0.12) 0%, transparent 45%),
-                repeating-linear-gradient(
-                    45deg,
-                    rgba(0, 85, 85, 0.04) 0px,
-                    rgba(0, 85, 85, 0.04) 2px,
-                    transparent 2px,
-                    transparent 6px
-                );
-            background-attachment: fixed;
-            color: #003333;
-        }
-
-        /* ===== KARTU GLASS ===== */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(0, 85, 85, 0.25);
-            border-radius: 15px;
-            backdrop-filter: blur(7px);
-            box-shadow: 0 4px 20px rgba(0, 85, 85, 0.15);
-        }
-
-        .page-title {
-            color: #005555;
-            font-weight: 600;
-            text-shadow: 0 0 8px rgba(0, 85, 85, 0.15);
-        }
-
-        /* ===== SUMMARY CARD ===== */
-        .summary-card {
-            background: rgba(255, 255, 255, 0.45);
-            border: 1px solid rgba(0, 85, 85, 0.25);
-            border-radius: 14px;
-            transition: 0.3s ease;
-            color: #003333;
-        }
-
-        .summary-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 26px rgba(0, 85, 85, 0.35);
-        }
-
-        .summary-card i {
-            color: #005555 !important;
-        }
-
-        /* ===== TABLE ===== */
-        table {
-            color: #003333 !important;
-        }
-
-        thead {
-            background: rgba(0, 85, 85, 0.18) !important;
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background: rgba(0, 85, 85, 0.05);
-        }
-
-        .table-striped tbody tr:nth-of-type(even) {
-            background: rgba(0, 85, 85, 0.10);
-        }
-
-        /* ===== CARD HEADER ===== */
-        .card-header {
-            border-bottom: 1px solid rgba(0, 85, 85, 0.25);
-            background: rgba(255, 255, 255, 0.30) !important;
-            color: #005555 !important;
-            font-weight: 600;
-        }
-
-        /* ===== BADGE ===== */
-        .badge {
-            padding: 8px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-
-        .badge.bg-danger {
-            background: #cc2e2e !important;
-        }
-
-        .badge.bg-success {
-            background: #0f8f6e !important;
-        }
-
-        /* ===== LINK ===== */
-        a.text-warning {
-            color: #005555 !important;
-            font-weight: 600;
-        }
-        a.text-warning:hover {
-            color: #003f3f !important;
-        }
-    </style>
 </head>
-
-<body>
+<body class="bg-light">
 
 <?php include __DIR__ . '/layouts/navbar.php'; ?>
 
 <div class="container">
-
-    <!-- Welcome -->
+    <!-- Welcome Card -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="glass-card p-4">
-                <h3 class="page-title mb-1">Selamat Datang, <?= htmlspecialchars($_SESSION['nama_lengkap']) ?>!</h3>
-                <p class="text-dark opacity-75">
-                    Anda login sebagai <strong><?= ucfirst($_SESSION['role']) ?></strong>
-                </p>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title">Selamat Datang, <?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?>!</h4>
+                    <p class="text-muted mb-0">Anda login sebagai <strong><?php echo ucfirst($_SESSION['role']); ?></strong></p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Summary Cards -->
     <div class="row mb-4">
-        <div class="col-md-3 mb-3">
-            <div class="summary-card p-3 h-100 shadow">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3 h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6>Total Produk</h6>
-                        <h2><?= $total_produk ?></h2>
+                        <h6 class="card-title mb-0">Total Produk</h6>
+                        <h2 class="mt-2 mb-0"><?php echo $total_produk; ?></h2>
                     </div>
-                    <i class="bi bi-box-seam display-4 opacity-75"></i>
+                    <i class="bi bi-box-seam display-4 opacity-50"></i>
                 </div>
-                <a href="<?= $base_url ?>/Produk" class="text-warning small text-decoration-none">Lihat Detail →</a>
+                <div class="card-footer bg-primary border-0">
+                    <a href="<?= $base_url ?>/Produk" class="text-white text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="summary-card p-3 h-100 shadow">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3 h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6>Total Kategori</h6>
-                        <h2><?= $total_kategori ?></h2>
+                        <h6 class="card-title mb-0">Total Kategori</h6>
+                        <h2 class="mt-2 mb-0"><?php echo $total_kategori; ?></h2>
                     </div>
-                    <i class="bi bi-tags display-4 opacity-75"></i>
+                    <i class="bi bi-tags display-4 opacity-50"></i>
                 </div>
-                <a href="<?= $base_url ?>/Kategori" class="text-warning small text-decoration-none">Lihat Detail →</a>
+                <div class="card-footer bg-success border-0">
+                    <a href="<?= $base_url ?>/Kategori" class="text-white text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="summary-card p-3 h-100 shadow">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3 h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6>Total Transaksi</h6>
-                        <h2><?= $total_transaksi ?></h2>
+                        <h6 class="card-title mb-0">Total Transaksi</h6>
+                        <h2 class="mt-2 mb-0"><?php echo $total_transaksi; ?></h2>
                     </div>
-                    <i class="bi bi-arrow-left-right display-4 opacity-75"></i>
+                    <i class="bi bi-arrow-left-right display-4 opacity-50"></i>
                 </div>
-                <a href="<?= $base_url ?>/Transaksi" class="text-warning small text-decoration-none">Lihat Detail →</a>
+                <div class="card-footer bg-warning border-0">
+                    <a href="<?= $base_url ?>/Transaksi" class="text-white text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="summary-card p-3 h-100 shadow">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3 h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6>Nilai Aset Stok</h6>
-                        <h4>Rp <?= number_format($total_nilai_stok, 0, ',', '.') ?></h4>
+                        <h6 class="card-title mb-0">Nilai Aset Stok</h6>
+                        <h4 class="mt-2 mb-0">Rp <?php echo number_format($total_nilai_stok, 0, ',', '.'); ?></h4>
                     </div>
-                    <i class="bi bi-cash-coin display-4 opacity-75"></i>
+                    <i class="bi bi-cash-coin display-4 opacity-50"></i>
+                </div>
+                <div class="card-footer bg-info border-0">
+                    <small class="text-white">Estimasi nilai modal</small>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Stok Menipis & Transaksi -->
+    <!-- Stok Menipis & 5 Transaksi Terakhir -->
     <div class="row">
+        <!-- Stok Menipis -->
         <div class="col-md-6 mb-4">
-            <div class="glass-card p-0">
-                <div class="card-header">
-                    <h5><i class="bi bi-exclamation-triangle"></i> Stok Menipis (&lt;10)</h5>
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-danger"><i class="bi bi-exclamation-triangle"></i> Stok Menipis (&lt; 10)</h5>
                 </div>
-
-                <div class="p-0 table-responsive">
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th>Kode</th>
-                                <th>Produk</th>
-                                <th class="text-center">Sisa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(count($low_stock_data)): ?>
-                                <?php foreach($low_stock_data as $row): ?>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Produk</th>
+                                    <th class="text-center">Sisa Stok</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if(count($low_stock_data) > 0): ?>
+                                    <?php foreach($low_stock_data as $row): ?>
                                     <tr>
-                                        <td><?= $row['kode_produk'] ?></td>
-                                        <td><?= $row['nama_produk'] ?></td>
-                                        <td class="text-center">
-                                            <span class="badge bg-danger"><?= $row['stok'] ?></span>
-                                        </td>
+                                        <td><?php echo htmlspecialchars($row['kode_produk'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_produk']); ?></td>
+                                        <td class="text-center"><span class="badge bg-danger rounded-pill"><?php echo $row['stok']; ?></span></td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr><td colspan="3" class="text-center py-3 text-muted">Tidak ada stok menipis</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr><td colspan="3" class="text-center text-muted py-3">Tidak ada stok menipis</td></tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
             </div>
         </div>
 
+        <!-- 5 Transaksi Terakhir -->
         <div class="col-md-6 mb-4">
-            <div class="glass-card p-0">
-                <div class="card-header">
-                    <h5><i class="bi bi-clock-history"></i> 5 Transaksi Terakhir</h5>
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-primary"><i class="bi bi-clock-history"></i> 5 Transaksi Terakhir</h5>
                 </div>
-
-                <div class="p-0 table-responsive">
-                    <table class="table mb-0">
-                        <thead>
-                            <tr>
-                                <th>Kode</th>
-                                <th>Jenis</th>
-                                <th>Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 0; foreach ($all_transaksi as $row): if ($i++ >= 5) break; ?>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
                                 <tr>
-                                    <td><?= $row['kode_produk'] ?></td>
+                                    <th>Kode</th>
+                                    <th>Jenis</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $count = 0;
+                                if(count($all_transaksi) > 0):
+                                    foreach($all_transaksi as $row):
+                                        if($count >= 5) break;
+                                        $count++;
+                                ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['kode_produk'] ?? $row['id_transaksi']); ?></td>
                                     <td>
-                                        <?php if ($row['jenis_transaksi']=="masuk"): ?>
-                                            <span class="badge bg-success">Masuk</span>
+                                        <?php if($row['jenis_transaksi'] == 'masuk'): ?>
+                                            <span class="badge bg-success"><i class="bi bi-arrow-down"></i> Masuk</span>
                                         <?php else: ?>
-                                            <span class="badge bg-danger">Keluar</span>
+                                            <span class="badge bg-danger"><i class="bi bi-arrow-up"></i> Keluar</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= date('d/m/Y', strtotime($row['tanggal'])) ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($row['tanggal'])); ?></td>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                <?php 
+                                    endforeach; 
+                                else:
+                                ?>
+                                <tr><td colspan="3" class="text-center text-muted py-3">Belum ada transaksi</td></tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
