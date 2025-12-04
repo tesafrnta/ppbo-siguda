@@ -115,7 +115,7 @@ switch($action) {
         break;
     
     case 'cetak_pdf':
-        // Export ke PDF menggunakan DOMPDF
+    // Export ke PDF menggunakan DOMPDF
         $stmt = $produk->readAll();
         include __DIR__ . '/../views/produk/cetak_pdf.php';
         break;

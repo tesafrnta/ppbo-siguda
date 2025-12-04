@@ -30,7 +30,7 @@ if (!isset($produkList)) {
                     </div>
                     <div class="card-body">
                         
-                        <form method="POST" action="TransaksiController.php?action=create">
+                        <form method="POST" action="<?= $base_url ?>/Transaksi?action=create">
                             
                             <div class="mb-3">
                                 <label for="id_produk" class="form-label">Produk <span class="text-danger">*</span></label>
