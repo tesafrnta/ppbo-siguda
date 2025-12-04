@@ -18,56 +18,33 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                
-                <?php if (!empty($_SESSION['error'])): ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                <?php endif; ?>
-
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
                         <h4 class="mb-0"><i class="bi bi-plus-square"></i> Tambah Kategori Baru</h4>
                     </div>
-
                     <div class="card-body">
                         
-                        <!-- FIX: Routing benar -->
-                        <form method="POST" action="<?= $base_url ?>?controller=kategori&action=create">
+                        <!-- FORM ACTION FIXED -->
+                        <form method="POST" action="<?= $base_url ?>/Kategori?action=create">
                             
                             <div class="mb-4">
                                 <label for="nama_kategori" class="form-label">Nama Kategori <span class="text-danger">*</span></label>
-                                <input 
-                                    type="text" 
-                                    class="form-control form-control-lg" 
-                                    id="nama_kategori" 
-                                    name="nama_kategori" 
-                                    placeholder="Contoh: Sepatu, Tas, Aksesoris"
-                                    required 
-                                    autofocus>
+                                <input type="text" class="form-control form-control-lg" id="nama_kategori" name="nama_kategori" placeholder="Contoh: Sepatu, Tas, Aksesoris" required autofocus>
                                 <div class="form-text">Masukkan nama kategori produk yang jelas.</div>
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                
-                                <!-- FIX: routing batal benar -->
-                                <a href="<?= $base_url ?>?controller=kategori&action=index" 
-                                   class="btn btn-secondary me-md-2">
+                                <a href="<?= $base_url ?>/Kategori" class="btn btn-secondary me-md-2">
                                     <i class="bi bi-x-circle"></i> Batal
                                 </a>
-
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-save"></i> Simpan Kategori
                                 </button>
-
                             </div>
 
                         </form>
-
-                    </div>
+                        </div>
                 </div>
-
             </div>
         </div>
     </div>

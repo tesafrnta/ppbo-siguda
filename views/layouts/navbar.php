@@ -6,18 +6,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $base_url ?>/Dashboard">Dashboard</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $base_url ?>/Kategori">Kategori</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $base_url ?>/Produk">Produk</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $base_url ?>/Transaksi">Transaksi</a>
                 </li>
+
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
