@@ -1,8 +1,6 @@
 <?php
 // views/produk/create.php
-// Pastikan akses variabel dari controller tersedia
 if (!isset($stmt_kategori)) {
-    // Jika diakses langsung tanpa controller, redirect atau stop
     echo "<div class='alert alert-danger'>Akses Ditolak. Buka lewat Controller.</div>";
     exit;
 }
@@ -29,15 +27,14 @@ if (!isset($stmt_kategori)) {
                     </div>
                     <div class="card-body">
                         
-                        <!-- PERBAIKAN: Ubah action dari "ProdukController.php?action=create" menjadi "<?= $base_url ?>/Produk?action=create" -->
-                        <form method="POST" action="<?= $base_url ?>/Produk?action=create">
+                        <!-- ✅ PERBAIKAN: Gunakan form yang simple tanpa action kompleks -->
+                        <form method="POST">
                             
                             <div class="mb-3">
                                 <label class="form-label">Kategori <span class="text-danger">*</span></label>
                                 <select name="kategori_id" class="form-select" required>
                                     <option value="">-- Pilih Kategori --</option>
                                     <?php 
-                                    // PERBAIKAN: Menggunakan $stmt_kategori dari Controller
                                     while($kat = $stmt_kategori->fetch(PDO::FETCH_ASSOC)): 
                                     ?>
                                         <option value="<?= $kat['id_kategori']; ?>">
@@ -101,7 +98,7 @@ if (!isset($stmt_kategori)) {
                             </div>
 
                         </form>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
