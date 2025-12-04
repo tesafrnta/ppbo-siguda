@@ -13,91 +13,95 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <style>
-        /* ===== BACKGROUND TEKSTUR HITAM EMAS ===== */
+        /* ===== BACKGROUND PUTIH + TEKSTRUR BIRU #255 ===== */
         body {
             height: 100vh;
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: #000;
+            background: #ffffff;
             background-image:
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 20% 30%, rgba(0, 85, 85, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(0, 85, 85, 0.12) 0%, transparent 45%),
                 repeating-linear-gradient(
                     45deg,
-                    rgba(212, 175, 55, 0.05) 0px,
-                    rgba(212, 175, 55, 0.05) 2px,
+                    rgba(0, 85, 85, 0.05) 0px,
+                    rgba(0, 85, 85, 0.05) 2px,
                     transparent 2px,
                     transparent 6px
                 );
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #003333;
         }
 
-        /* ===== CARD ===== */
+        /* ===== CARD TRANSPARAN ===== */
         .login-card {
             width: 400px;
             border-radius: 18px;
             padding: 30px;
-            background: rgba(20, 20, 20, 0.85);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 0 20px rgba(0, 85, 85, 0.25);
+            border: 1px solid rgba(0, 85, 85, 0.25);
             animation: fadeIn 0.8s ease-out;
         }
 
         @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== TEKS ===== */
         .login-card h3 {
-            color: #d4af37;
+            color: #005555;
+            font-weight: 700;
         }
 
         .login-card p,
         .login-card label,
         small {
-            color: #f0f0f0;
+            color: #003333;
         }
 
         /* ===== INPUT ===== */
         .form-control {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(212, 175, 55, 0.4) !important;
-            color: #fff !important;
+            background: rgba(0, 85, 85, 0.05) !important;
+            border: 1px solid rgba(0, 85, 85, 0.35) !important;
+            color: #003333 !important;
         }
 
         .form-control:focus {
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
-            border-color: #d4af37 !important;
+            box-shadow: 0 0 10px rgba(0, 85, 85, 0.5);
+            border-color: #005555 !important;
         }
 
         .input-group-text {
-            background: rgba(212, 175, 55, 0.2) !important;
-            border: 1px solid rgba(212, 175, 55, 0.4) !important;
-            color: #d4af37;
+            background: rgba(0, 85, 85, 0.2) !important;
+            border: 1px solid rgba(0, 85, 85, 0.35) !important;
+            color: #003333;
         }
 
         ::placeholder {
-            color: #aaa !important;
+            color: #666 !important;
         }
 
-        /* ===== BUTTON EMAS ===== */
-        .btn-gold {
-            background: #d4af37;
+        /* ===== BUTTON ===== */
+        .btn-main {
+            background: #005555;
             border: none;
-            color: #000;
+            color: #fff;
             font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn-gold:hover {
-            background: #b8922d;
+        .btn-main:hover {
+            background: #003f3f;
         }
 
+        /* ===== ICON ===== */
         .login-icon {
-            color: #d4af37;
+            color: #005555;
             font-size: 55px;
         }
     </style>
@@ -135,7 +139,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-gold w-100 py-2">MASUK SISTEM</button>
+            <button type="submit" class="btn btn-main w-100 py-2">MASUK SISTEM</button>
         </form>
 
         <div class="text-center mt-3">
