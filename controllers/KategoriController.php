@@ -75,9 +75,5 @@ switch($action) {
         header("Location: $base_url/Kategori");
         exit();
 
-    default:
-        $stmt = $kategori->readAll();
-        include __DIR__ . '/../views/kategori/index.php';
-        break;
 }
 ?>
