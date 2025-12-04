@@ -1,5 +1,8 @@
 <?php
-// 2. MVC/Modular
+// ⭐ PENTING: Panggil ini PERTAMA KALI
+require_once __DIR__ . '/../config/session_handler.php';
+requireLogin(); // Jangan akses kalau belum login
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Produk.php';
 require_once __DIR__ . '/../models/Kategori.php';

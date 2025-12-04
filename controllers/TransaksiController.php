@@ -1,4 +1,8 @@
 <?php
+// ⭐ PENTING: Panggil ini PERTAMA KALI
+require_once __DIR__ . '/../config/session_handler.php';
+requireLogin(); // Jangan akses kalau belum login
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/TransaksiMasuk.php';
 require_once __DIR__ . '/../models/TransaksiKeluar.php';
