@@ -46,7 +46,7 @@ switch($action) {
                 
                 if($kategori->update()) {
                     $_SESSION['success'] = "Kategori berhasil diupdate";
-                    header("Location: $base_url/Kategori");
+                    header("Location: $base_url?controller=kategori&action=index");
                     exit();
                 } else {
                     $_SESSION['error'] = "Gagal mengupdate kategori";
@@ -72,7 +72,7 @@ switch($action) {
                 }
             }
         }
-        header("Location: $base_url/Kategori");
+        header("Location: $base_url?controller=kategori&action=index");
         exit();
 
 }
