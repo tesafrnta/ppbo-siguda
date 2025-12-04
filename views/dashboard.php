@@ -40,86 +40,78 @@ $low_stock_data = $stmt_low ? $stmt_low->fetchAll(PDO::FETCH_ASSOC) : [];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <style>
-    /* =======================
-       BACKGROUND HITAM EMAS
-    ======================== */
     body {
-        background: 
-            linear-gradient(135deg, rgba(20,20,20,0.95), rgba(0,0,0,0.85)),
-            url('https://www.transparenttextures.com/patterns/gold-scale.png');
+        background: #000;
+        font-family: 'Poppins', sans-serif;
+        background-image: url('https://i.imgur.com/Yl5xQ0i.png');
         background-size: cover;
         background-attachment: fixed;
-        color: #f2f2f2;
+        background-repeat: no-repeat;
+        color: #fff;
     }
 
-    /* NAVBAR - opsional, jika mau elegan */
-    .navbar {
-        background: rgba(0, 0, 0, 0.3) !important;
-        backdrop-filter: blur(5px);
-        border-bottom: 1px solid rgba(255, 215, 0, 0.4);
-    }
-    .navbar a { color: gold !important; }
-
-    /* =======================
-       CARD TRANSPARAN EMAS
-    ======================== */
-    .card {
-        background: rgba(0, 0, 0, 0.3) !important;
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 215, 0, 0.4) !important;
-        color: #f2f2f2 !important;
+    .glass-card {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 215, 0, 0.35);
+        border-radius: 15px;
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.18);
     }
 
-    .card-header {
-        background: rgba(0,0,0,0.45) !important;
-        border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-        color: gold !important;
+    .page-title {
+        color: #f5d17a;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
     }
 
-    /* =======================
-       SUMMARY CARD KHUSUS (EMAS)
-    ======================== */
-    .card-summary {
-        background: rgba(0, 0, 0, 0.45) !important;
-        border: 1px solid gold !important;
-        color: gold !important;
-        backdrop-filter: blur(4px);
+    .summary-card {
+        background: rgba(20, 20, 20, 0.55);
+        border: 1px solid rgba(255, 215, 0, 0.35);
+        color: #f7e7b8;
+        border-radius: 14px;
+        transition: 0.3s ease;
+        backdrop-filter: blur(3px);
     }
 
-    .card-summary .card-footer {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
+    .summary-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 28px rgba(255, 215, 0, 0.4);
     }
 
-    .card-summary i {
-        color: gold !important;
-        opacity: 0.7;
+    .summary-card i {
+        color: #e6c45c !important;
     }
 
-    /* =======================
-       TABEL HITAM-EMAS
-    ======================== */
     table {
         color: #fff !important;
     }
 
     thead {
-        background: rgba(255, 215, 0, 0.25) !important;
-        color: gold !important;
+        background: rgba(255, 215, 0, 0.20) !important;
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
-        background: rgba(255, 255, 255, 0.05) !important;
+        background: rgba(255,255,255,0.06);
     }
 
-    .table-hover tbody tr:hover {
-        background: rgba(255, 215, 0, 0.15) !important;
+    .table-striped tbody tr:nth-of-type(even) {
+        background: rgba(255,255,255,0.12);
     }
 
-    /* BADGE */
-    .badge.bg-danger { background-color: #ff5252 !important; }
-    .badge.bg-success { background-color: #00c853 !important; }
+    .card-header {
+        border-bottom: 1px solid rgba(255, 215, 0, 0.35);
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #f7d67a !important;
+    }
 
+    .badge {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+    }
 </style>
 
 </head>
@@ -127,114 +119,104 @@ $low_stock_data = $stmt_low ? $stmt_low->fetchAll(PDO::FETCH_ASSOC) : [];
 
 <?php include __DIR__ . '/layouts/navbar.php'; ?>
 
-<div class="container mt-4">
+<div class="container">
 
-    <!-- Welcome Card -->
+    <!-- Welcome -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h4 class="card-title">Selamat Datang, <?= htmlspecialchars($_SESSION['nama_lengkap']); ?>!</h4>
-                    <p class="text-muted mb-0">Anda login sebagai <strong><?= ucfirst($_SESSION['role']); ?></strong></p>
-                </div>
+            <div class="glass-card p-4">
+                <h3 class="page-title mb-1">Selamat Datang, <?= htmlspecialchars($_SESSION['nama_lengkap']) ?>!</h3>
+                <p class="text-light opacity-75">Anda login sebagai <strong><?= ucfirst($_SESSION['role']) ?></strong></p>
             </div>
         </div>
     </div>
 
-    <!-- SUMMARY CARDS -->
+    <!-- Summary Cards -->
     <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card card-summary mb-3 h-100 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center">
+
+        <div class="col-md-3 mb-3">
+            <div class="summary-card p-3 h-100 shadow">
+                <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Produk</h6>
-                        <h2><?= $total_produk; ?></h2>
+                        <h2><?= $total_produk ?></h2>
                     </div>
-                    <i class="bi bi-box-seam display-4"></i>
+                    <i class="bi bi-box-seam display-4 opacity-75"></i>
                 </div>
-                <div class="card-footer">
-                    <a href="<?= $base_url ?>/Produk" class="text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
-                </div>
+                <a href="<?= $base_url ?>/Produk" class="text-warning small text-decoration-none">Lihat Detail →</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card card-summary mb-3 h-100 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="col-md-3 mb-3">
+            <div class="summary-card p-3 h-100 shadow">
+                <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Kategori</h6>
-                        <h2><?= $total_kategori; ?></h2>
+                        <h2><?= $total_kategori ?></h2>
                     </div>
-                    <i class="bi bi-tags display-4"></i>
+                    <i class="bi bi-tags display-4 opacity-75"></i>
                 </div>
-                <div class="card-footer">
-                    <a href="<?= $base_url ?>/Kategori" class="text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
-                </div>
+                <a href="<?= $base_url ?>/Kategori" class="text-warning small text-decoration-none">Lihat Detail →</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card card-summary mb-3 h-100 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="col-md-3 mb-3">
+            <div class="summary-card p-3 h-100 shadow">
+                <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Transaksi</h6>
-                        <h2><?= $total_transaksi; ?></h2>
+                        <h2><?= $total_transaksi ?></h2>
                     </div>
-                    <i class="bi bi-arrow-left-right display-4"></i>
+                    <i class="bi bi-arrow-left-right display-4 opacity-75"></i>
                 </div>
-                <div class="card-footer">
-                    <a href="<?= $base_url ?>/Transaksi" class="text-decoration-none small">Lihat Detail <i class="bi bi-arrow-right"></i></a>
-                </div>
+                <a href="<?= $base_url ?>/Transaksi" class="text-warning small text-decoration-none">Lihat Detail →</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card card-summary mb-3 h-100 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="col-md-3 mb-3">
+            <div class="summary-card p-3 h-100 shadow">
+                <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Nilai Aset Stok</h6>
-                        <h4>Rp <?= number_format($total_nilai_stok, 0, ',', '.'); ?></h4>
+                        <h4>Rp <?= number_format($total_nilai_stok,0,',','.') ?></h4>
                     </div>
-                    <i class="bi bi-cash-coin display-4"></i>
-                </div>
-                <div class="card-footer">
-                    <small>Estimasi nilai modal</small>
+                    <i class="bi bi-cash-coin display-4 opacity-75"></i>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- CONTENT ROW -->
+    <!-- Stok Menipis & Transaksi -->
     <div class="row">
 
-        <!-- STOK MENIPIS -->
         <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
+            <div class="glass-card p-0">
                 <div class="card-header">
-                    <h5><i class="bi bi-exclamation-triangle"></i> Stok Menipis (&lt; 10)</h5>
+                    <h5><i class="bi bi-exclamation-triangle"></i> Stok Menipis (&lt;10)</h5>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped table-hover mb-0">
+                <div class="p-0 table-responsive">
+                    <table class="table table-striped mb-0">
                         <thead>
                             <tr>
                                 <th>Kode</th>
                                 <th>Produk</th>
-                                <th class="text-center">Sisa Stok</th>
+                                <th class="text-center">Sisa</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(count($low_stock_data) > 0): ?>
+                            <?php if(count($low_stock_data)): ?>
                                 <?php foreach($low_stock_data as $row): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($row['kode_produk'] ?? '-'); ?></td>
-                                    <td><?= htmlspecialchars($row['nama_produk']); ?></td>
+                                    <td><?= $row['kode_produk'] ?></td>
+                                    <td><?= $row['nama_produk'] ?></td>
                                     <td class="text-center">
-                                        <span class="badge bg-danger rounded-pill"><?= $row['stok']; ?></span>
+                                        <span class="badge bg-danger"><?= $row['stok'] ?></span>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                            <tr><td colspan="3" class="text-center text-muted py-3">Tidak ada stok menipis</td></tr>
+                                <tr><td colspan="3" class="text-center py-3 text-muted">Tidak ada stok menipis</td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -242,14 +224,13 @@ $low_stock_data = $stmt_low ? $stmt_low->fetchAll(PDO::FETCH_ASSOC) : [];
             </div>
         </div>
 
-        <!-- 5 TRANSAKSI TERAKHIR -->
         <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
+            <div class="glass-card p-0">
                 <div class="card-header">
                     <h5><i class="bi bi-clock-history"></i> 5 Transaksi Terakhir</h5>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
+                <div class="p-0 table-responsive">
+                    <table class="table mb-0">
                         <thead>
                             <tr>
                                 <th>Kode</th>
@@ -258,37 +239,31 @@ $low_stock_data = $stmt_low ? $stmt_low->fetchAll(PDO::FETCH_ASSOC) : [];
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $count = 0; ?>
-                            <?php if(count($all_transaksi) > 0): ?>
-                                <?php foreach($all_transaksi as $row): ?>
-                                    <?php if($count >= 5) break; $count++; ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($row['kode_produk'] ?? $row['id_transaksi']); ?></td>
-                                        <td>
-                                            <?php if($row['jenis_transaksi'] == 'masuk'): ?>
-                                                <span class="badge bg-success"><i class="bi bi-arrow-down"></i> Masuk</span>
-                                            <?php else: ?>
-                                                <span class="badge bg-danger"><i class="bi bi-arrow-up"></i> Keluar</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td><?= date('d/m/Y', strtotime($row['tanggal'])); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                            <tr><td colspan="3" class="text-center text-muted py-3">Belum ada transaksi</td></tr>
-                            <?php endif; ?>
+                            <?php $i=0; foreach($all_transaksi as $row): if($i++>=5) break; ?>
+                            <tr>
+                                <td><?= $row['kode_produk'] ?></td>
+                                <td>
+                                    <?php if($row['jenis_transaksi']=="masuk"): ?>
+                                        <span class="badge bg-success">Masuk</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger">Keluar</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= date('d/m/Y', strtotime($row['tanggal'])) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
 
-    </div><!-- END ROW -->
+    </div>
 
-</div><!-- END CONTAINER -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
-
