@@ -24,7 +24,7 @@
                     </div>
                     <div class="card-body">
                         
-                        <form method="POST" action="<?= $base_url ?>?controller=kategori&action=create">
+                        <form method="POST" action="<?= $base_url ?>/Kategori/create">
                             
                             <div class="mb-4">
                                 <label for="nama_kategori" class="form-label">Nama Kategori <span class="text-danger">*</span></label>
@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="<?= $base_url ?>?controller=kategori&action=index" class="btn btn-secondary me-md-2">
+                                <a href="<?= $base_url ?>/Kategori" class="btn btn-secondary">
                                     <i class="bi bi-x-circle"></i> Batal
                                 </a>
                                 <button type="submit" class="btn btn-primary">

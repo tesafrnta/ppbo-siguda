@@ -10,7 +10,8 @@ $database = new Database();
 $db = $database->getConnection();
 $kategori = new Kategori($db);
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'index';
+$action = $_GET['action'] ?? explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'index';
+
 
 switch($action) {
     case 'index':
@@ -26,7 +27,7 @@ switch($action) {
             
             if($kategori->create()) {
                 $_SESSION['success'] = "Kategori berhasil ditambahkan";
-                header("Location: $base_url?controller=kategori&action=index");
+                header("Location: $base_url/Kategori");
                 exit();
             } else {
                 $_SESSION['error'] = "Gagal menambahkan kategori";
@@ -46,7 +47,7 @@ switch($action) {
                 
                 if($kategori->update()) {
                     $_SESSION['success'] = "Kategori berhasil diupdate";
-                    header("Location: $base_url?controller=kategori&action=index");
+                    header("Location: $base_url/Kategori");
                     exit();
                 } else {
                     $_SESSION['error'] = "Gagal mengupdate kategori";
@@ -72,7 +73,7 @@ switch($action) {
                 }
             }
         }
-        header("Location: $base_url?controller=kategori&action=index");
+        header("Location: $base_url/Kategori");
         exit();
 
 }
