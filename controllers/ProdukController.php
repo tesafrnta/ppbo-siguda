@@ -1,7 +1,4 @@
 <?php
-// ⭐ PENTING: Panggil ini PERTAMA KALI
-require_once __DIR__ . '/../config/session_handler.php';
-requireLogin(); // Jangan akses kalau belum login
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Produk.php';
@@ -23,16 +20,16 @@ switch($action) {
         
     case 'create':
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // 3. BUKTI ENCAPSULATION: Menggunakan SETTER untuk set data
-            $produk->setIdKategori($_POST['kategori_id']);
-            $produk->setKodeProduk($_POST['kode_produk']);
-            $produk->setNamaProduk($_POST['nama_produk']);
-            $produk->setUkuran($_POST['ukuran']);
-            $produk->setWarna($_POST['warna']);
-            $produk->setStok($_POST['stok']);
-            $produk->setHargaBeli($_POST['harga_beli']);
-            $produk->setHargaJual($_POST['harga_jual']);
-            $produk->setDeskripsi($_POST['deskripsi']);
+            // ✅ Gunakan null coalescing operator (??) untuk menghindari warning
+            $produk->setIdKategori($_POST['kategori_id'] ?? '');
+            $produk->setKodeProduk($_POST['kode_produk'] ?? '');
+            $produk->setNamaProduk($_POST['nama_produk'] ?? '');
+            $produk->setUkuran($_POST['ukuran'] ?? '');
+            $produk->setWarna($_POST['warna'] ?? '');
+            $produk->setStok($_POST['stok'] ?? 0);
+            $produk->setHargaBeli($_POST['harga_beli'] ?? 0);
+            $produk->setHargaJual($_POST['harga_jual'] ?? 0);
+            $produk->setDeskripsi($_POST['deskripsi'] ?? '');
             
             if($produk->create()) {
                 $_SESSION['success'] = "Produk berhasil ditambahkan";

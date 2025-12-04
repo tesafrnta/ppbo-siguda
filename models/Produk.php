@@ -54,13 +54,12 @@ class Produk {
     // ===== CRUD METHODS =====
 
     public function create() {
+        // Query yang kompatibel dengan MySQL & PostgreSQL
         $query = "INSERT INTO {$this->table} 
-                SET id_kategori=:id_kategori, kode_produk=:kode_produk, 
-                    nama_produk=:nama_produk, ukuran=:ukuran, warna=:warna,
-                    stok=:stok, harga_beli=:harga_beli, harga_jual=:harga_jual,
-                    deskripsi=:deskripsi";
+                (id_kategori, kode_produk, nama_produk, ukuran, warna, stok, harga_beli, harga_jual, deskripsi)
+                VALUES (:id_kategori, :kode_produk, :nama_produk, :ukuran, :warna, :stok, :harga_beli, :harga_jual, :deskripsi)";
         
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         
         $stmt->bindParam(':id_kategori', $this->id_kategori);
         $stmt->bindParam(':kode_produk', $this->kode_produk);
