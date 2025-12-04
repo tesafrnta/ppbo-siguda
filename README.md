@@ -157,6 +157,9 @@ php -S localhost:8000 -t public router.php
 ## Link Project
 - [Dokumen Laporan](https://docs.google.com/document/d/1mTMhX8uBaTI0z1bTFjYZ2TCWiV2GJZW7ITvg3r7dA1o/edit?tab=t.0)
 - [Demo](https://drive.google.com/file/d/11hGy3fDN1dMsLLIxJcppz2fa6ZidSn7w/view?usp=sharing) 
-- [Video presentasi](https://drive.google.com/file/d/11hGy3fDN1dMsLLIxJcppz2fa6ZidSn7w/view?usp=sharing) 
+- [Video presentasi](https://drive.google.com/file/d/11hGy3fDN1dMsLLIxJcppz2fa6ZidSn7w/view?usp=sharing)
+- [Deploy]
+  https://ppbo-siguda.vercel.app/
+
 
 
