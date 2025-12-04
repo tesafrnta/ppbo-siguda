@@ -13,23 +13,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <style>
+        /* ===== BACKGROUND TEKSTUR HITAM EMAS ===== */
         body {
-            background: #000;
             height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(212, 175, 55, 0.05) 0px,
+                    rgba(212, 175, 55, 0.05) 2px,
+                    transparent 2px,
+                    transparent 6px
+                );
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Poppins', sans-serif;
         }
 
-        /* Card */
+        /* ===== CARD ===== */
         .login-card {
             width: 400px;
             border-radius: 18px;
             padding: 30px;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.95));
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(8px);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.25);
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -45,10 +58,10 @@
         .login-card p,
         .login-card label,
         small {
-            color: #f5f5f5;
+            color: #f0f0f0;
         }
 
-        /* Input styling */
+        /* ===== INPUT ===== */
         .form-control {
             background: rgba(255, 255, 255, 0.05) !important;
             border: 1px solid rgba(212, 175, 55, 0.4) !important;
@@ -70,7 +83,7 @@
             color: #aaa !important;
         }
 
-        /* Button */
+        /* ===== BUTTON EMAS ===== */
         .btn-gold {
             background: #d4af37;
             border: none;
@@ -83,7 +96,6 @@
             background: #b8922d;
         }
 
-        /* Icon */
         .login-icon {
             color: #d4af37;
             font-size: 55px;
