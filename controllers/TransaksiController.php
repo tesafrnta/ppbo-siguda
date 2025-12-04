@@ -1,19 +1,24 @@
 <?php
-namespace Controllers;
+// ⭐ PENTING: Panggil ini PERTAMA KALI
+require_once __DIR__ . '/../config/session_handler.php';
+requireLogin(); // Jangan akses kalau belum login
 
-use Config\Database;
-use Models\TransaksiMasuk;
-use Models\TransaksiKeluar;
-use Models\Produk;
-use PDO;
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/TransaksiMasuk.php';
+require_once __DIR__ . '/../models/TransaksiKeluar.php';
+require_once __DIR__ . '/../models/Produk.php';
 
+// Koneksi database
 $database = new Database();
 $db = $database->getConnection();
 $produk = new Produk($db);
 
-$action = $_GET['action'] ?? 'index';
+$action = $_GET['action'] ?? 'index'; //get untuk medapatkan data
 
 switch ($action) {
+
+    // menampilkan semua transaksi
+    
     case 'index':
         $transaksiMasuk = new TransaksiMasuk($db);
         $transaksiKeluar = new TransaksiKeluar($db);
@@ -26,6 +31,7 @@ switch ($action) {
             $stmtKeluar->fetchAll(PDO::FETCH_ASSOC)
         );
 
+        // Urutkan berdasarkan tanggal DESC
         usort($transaksiList, function($a, $b) {
             return strtotime($b['tanggal']) - strtotime($a['tanggal']);
         });
@@ -33,6 +39,7 @@ switch ($action) {
         include __DIR__ . '/../views/transaksi/index.php';
         break;
 
+    // Tambah transaksi baru
     case 'create':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $jenis = $_POST['jenis_transaksi'] ?? 'masuk';
@@ -44,6 +51,7 @@ switch ($action) {
             $transaksi->keterangan = $_POST['keterangan'] ?? '';
             $transaksi->jenis_transaksi = $jenis;
 
+            // Validasi stok hanya untuk transaksi keluar
             if ($jenis === 'keluar' && !$transaksi->validateStock()) {
                 $_SESSION['error'] = "Stok tidak mencukupi untuk transaksi keluar!";
             } else {
@@ -57,12 +65,14 @@ switch ($action) {
             }
         }
 
+        // Ambil daftar produk
         $stmt_produk = $produk->readAll();
         $produkList = $stmt_produk->fetchAll(PDO::FETCH_ASSOC);
 
         include __DIR__ . '/../views/transaksi/create.php';
         break;
 
+    // Hapus transaksi
     case 'delete':
         if (isset($_GET['id'], $_GET['jenis'])) {
             $jenis = $_GET['jenis'];
@@ -78,6 +88,7 @@ switch ($action) {
         header("Location: $base_url/Transaksi");
         exit();
 
+    // Cetak laporan transaksi
     case 'cetak_laporan':
         $start_date = $_GET['start_date'] ?? date('Y-m-01');
         $end_date = $_GET['end_date'] ?? date('Y-m-d');
@@ -90,6 +101,7 @@ switch ($action) {
 
         $data = array_merge($dataMasuk, $dataKeluar);
 
+        // Urutkan berdasarkan tanggal 
         usort($data, function($a, $b) {
             return strtotime($a['tanggal']) - strtotime($b['tanggal']);
         });
@@ -101,3 +113,4 @@ switch ($action) {
         header("Location: $base_url/Transaksi");
         exit();
 }
+?>

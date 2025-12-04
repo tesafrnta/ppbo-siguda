@@ -1,13 +1,14 @@
 <?php
-namespace Models;
+require_once __DIR__ . '/Transaksi.php';
+require_once __DIR__ . '/Produk.php';
 
 class TransaksiKeluar extends Transaksi {
 
     public function validateStock() {
         $produk = new Produk($this->conn);
-        $produk->setIdProduk($this->id_produk);
+        $produk->id_produk = $this->id_produk;
         $produk->readOne();
-        return ($produk->getStok() >= $this->jumlah);
+        return ($produk->stok >= $this->jumlah);
     }
 
     public function save() {
@@ -24,12 +25,13 @@ class TransaksiKeluar extends Transaksi {
         // Kurangi stok produk jika insert berhasil
         if($result) {
             $produk = new Produk($this->conn);
-            $produk->setIdProduk($this->id_produk);
+            $produk->id_produk = $this->id_produk;
             $produk->readOne();
-            $produk->setStok($produk->getStok() - $this->jumlah);
+            $produk->stok -= $this->jumlah;
             $produk->update();
         }
 
         return $result;
     }
 }
+?>

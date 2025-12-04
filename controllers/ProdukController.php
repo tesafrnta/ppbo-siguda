@@ -1,9 +1,11 @@
 <?php
-namespace Controllers;
+// ⭐ PENTING: Panggil ini PERTAMA KALI
+require_once __DIR__ . '/../config/session_handler.php';
+requireLogin(); // Jangan akses kalau belum login
 
-use Config\Database;
-use Models\Produk;
-use Models\Kategori;
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Produk.php';
+require_once __DIR__ . '/../models/Kategori.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -12,6 +14,7 @@ $kategori = new Kategori($db);
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
+// 4. Fungsionalitas Utama Aplikasi - CRUD (Tambah, ubah, hapus, lihat data)
 switch($action) {
     case 'index':
         $stmt = $produk->readAll();
@@ -20,6 +23,7 @@ switch($action) {
         
     case 'create':
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // 3. BUKTI ENCAPSULATION: Menggunakan SETTER untuk set data
             $produk->setIdKategori($_POST['kategori_id']);
             $produk->setKodeProduk($_POST['kode_produk']);
             $produk->setNamaProduk($_POST['nama_produk']);
@@ -45,10 +49,12 @@ switch($action) {
         
     case 'edit':
         if(isset($_GET['id'])) {
+            // Set ID menggunakan setter
             $produk->setIdProduk($_GET['id']);
             $produk->readOne();
             
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Update menggunakan setter
                 $produk->setIdKategori($_POST['kategori_id']);
                 $produk->setKodeProduk($_POST['kode_produk']);
                 $produk->setNamaProduk($_POST['nama_produk']);
@@ -86,25 +92,33 @@ switch($action) {
         exit();
         
     case 'cetak':
+        // Cetak HTML (untuk print browser)
         $stmt = $produk->readAll();
+        // Cek apakah data dikirim dari controller
         if (!isset($stmt)) {
             echo "Error: Data tidak ditemukan. Silakan akses lewat Controller.";
             exit;
         }
 
+        // Load Composer Autoload
         require_once __DIR__ . '/../vendor/autoload.php';
 
-        $options = new \Dompdf\Options();
+        // Import Dompdf Classes
+
+        // Konfigurasi Dompdf
+        $options = new Dompdf\Options();
         $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', true); // Untuk load CSS/image dari URL
 
-        $dompdf = new \Dompdf\Dompdf($options);
+        $dompdf = new Dompdf\Dompdf($options);
 
+        // Mulai buffer HTML
         ob_start();
         include __DIR__ . '/../views/produk/cetak.php';
         break;
     
     case 'cetak_pdf':
+    // Export ke PDF menggunakan DOMPDF
         $stmt = $produk->readAll();
         include __DIR__ . '/../views/produk/cetak_pdf.php';
         break;
@@ -114,3 +128,4 @@ switch($action) {
         include __DIR__ . '/../views/produk/index.php';
         break;
 }
+?>

@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+require_once __DIR__ . '/Transaksi.php';
 
 class TransaksiMasuk extends Transaksi {
 
@@ -14,3 +14,4 @@ class TransaksiMasuk extends Transaksi {
         return $this->insertToDatabase();
     }
 }
+?>

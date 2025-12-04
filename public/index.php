@@ -1,69 +1,79 @@
 <?php
+// public/index.php - PENTING: Tambahkan di PALING ATAS sebelum apapun
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// STEP 1: Load composer autoload PERTAMA - JANGAN UBAH POSISI INI!
-$autoloadPath = __DIR__ . '/../vendor/autoload.php';
-if (!file_exists($autoloadPath)) {
-    die('Error: Composer autoload not found. Run: composer install');
-}
-require_once $autoloadPath;
-
-// STEP 2: Load .env file menggunakan Dotenv
-try {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-    $dotenv->safeLoad();
-} catch (Exception $e) {
-    // .env tidak ada atau error - gunakan default values
-}
-
-// STEP 3: Load path config (untuk $base_url)
+// ⭐ PENTING: Include session handler TERLEBIH DAHULU
+require_once __DIR__ . '/../config/session_handler.php';
 require_once __DIR__ . '/../config/path.php';
 
-// STEP 4: Import classes yang dibutuhkan
-use config\Database;
-use models\Admin;
+// Debug: Tampilkan apa yang sedang terjadi
+// echo "<!-- DEBUG: User ID = " . ($_SESSION['user_id'] ?? 'TIDAK ADA') . " -->";
 
-// Jika sudah login, Atur return tampilan berdasarkan request
-if (isset($_SESSION['user_id'])) {
-    $path = ltrim($_SERVER['REQUEST_URI'], '/');
+// Jika sudah login, atur return tampilan berdasarkan request
+if (isLoggedIn()) {
+    // Extract path dari REQUEST_URI
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $path = ltrim($path, '/');
+    
+    // Ambil nama controller (string sebelum ? atau /)
     $controller = explode('?', $path)[0];
+    $controller = explode('/', $controller)[0];
+    
+    // Hapus trailing slashes
+    $controller = trim($controller);
+    
+    // Debug
+    // echo "<!-- DEBUG: Controller = " . $controller . " -->";
 
-    if (file_exists(__DIR__ . '/../controllers/' . $controller . 'Controller.php')) {
-        require_once __DIR__ . '/../controllers/' . $controller . 'Controller.php';
+    // Cek apakah file controller ada
+    $controller_file = __DIR__ . '/../controllers/' . ucfirst($controller) . 'Controller.php';
+    
+    if (!empty($controller) && file_exists($controller_file)) {
+        require_once $controller_file;
         exit();
     }
 
-    require_once __DIR__ . '/../Controllers/DashboardController.php';
+    // Default ke Dashboard jika controller tidak ditemukan
+    require_once __DIR__ . '/../controllers/DashboardController.php';
     exit();
 }
 
-// Proses Login saat tombol ditekan
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        $database = new Database();
-        $db = $database->getConnection();
-        $admin = new Admin($db);
+// ========================================
+// JIKA BELUM LOGIN - Proses Login
+// ========================================
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    require_once __DIR__ . '/../config/database.php';
+    require_once __DIR__ . '/../models/Admin.php';
+
+    $database = new Database();
+    $db = $database->getConnection();
+    
+    if (!$db) {
+        $error = "Gagal koneksi database. Periksa konfigurasi .env";
+    } else {
+        $admin = new Admin($db);
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
         if ($admin->login($username, $password)) {
+            // Set session
             $_SESSION['user_id'] = $admin->getId();
             $_SESSION['username'] = $admin->getUsername();
             $_SESSION['nama_lengkap'] = $admin->getNamaLengkap();
             $_SESSION['role'] = $admin->getRole();
 
-            header("Location: $base_url");
+            // Simpan session ke storage
+            session_write_close();
+
+            // Redirect ke dashboard dengan URL lengkap
+            header("Location: {$base_url}/Dashboard");
             exit();
         } else {
             $error = "Username atau password salah!";
         }
-    } catch (Exception $e) {
-        $error = "Error: " . $e->getMessage();
     }
 }
 
+// Tampilkan form login
 include_once __DIR__ . '/../views/login.php';
+?>
