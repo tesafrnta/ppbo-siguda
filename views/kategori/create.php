@@ -24,7 +24,6 @@
                     </div>
                     <div class="card-body">
                         
-                        <!-- FORM ACTION FIXED -->
                         <form method="POST" action="<?= $base_url ?>/Kategori?action=create">
                             
                             <div class="mb-4">
@@ -34,7 +33,7 @@
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="<?= $base_url ?>/Kategori" class="btn btn-secondary me-md-2">
+                                <a href="<?= $base_url ?>/KategoriController.php?action=index" class="btn btn-secondary me-md-2">
                                     <i class="bi bi-x-circle"></i> Batal
                                 </a>
                                 <button type="submit" class="btn btn-primary">

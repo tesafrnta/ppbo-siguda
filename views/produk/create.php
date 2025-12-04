@@ -29,6 +29,7 @@ if (!isset($stmt_kategori)) {
                     </div>
                     <div class="card-body">
                         
+                        <!-- PERBAIKAN: Ubah action dari "ProdukController.php?action=create" menjadi "<?= $base_url ?>/Produk?action=create" -->
                         <form method="POST" action="<?= $base_url ?>/Produk?action=create">
                             
                             <div class="mb-3">

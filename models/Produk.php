@@ -1,9 +1,13 @@
 <?php
+namespace Models;
+
+use PDO;
+
 class Produk {
     private $conn;
     private $table = "produk";
     
-    // Private properties
+    // Properti PRIVATE dengan Getter/Setter (Encapsulation)
     private $id_produk;
     private $id_kategori;
     private $kode_produk;
@@ -19,39 +23,36 @@ class Produk {
         $this->conn = $db;
     }
 
-    // ===== SETTER & GETTER =====
-    
-    public function setIdProduk($id) { $this->id_produk = $id; }
+    // GETTER & SETTER
     public function getIdProduk() { return $this->id_produk; }
+    public function setIdProduk($id) { $this->id_produk = $id; }
 
-    public function setIdKategori($id) { $this->id_kategori = $id; }
     public function getIdKategori() { return $this->id_kategori; }
+    public function setIdKategori($id) { $this->id_kategori = $id; }
 
-    public function setKodeProduk($kode) { $this->kode_produk = $kode; }
     public function getKodeProduk() { return $this->kode_produk; }
+    public function setKodeProduk($kode) { $this->kode_produk = $kode; }
 
-    public function setNamaProduk($nama) { $this->nama_produk = $nama; }
     public function getNamaProduk() { return $this->nama_produk; }
+    public function setNamaProduk($nama) { $this->nama_produk = $nama; }
 
-    public function setUkuran($ukuran) { $this->ukuran = $ukuran; }
     public function getUkuran() { return $this->ukuran; }
+    public function setUkuran($ukuran) { $this->ukuran = $ukuran; }
 
-    public function setWarna($warna) { $this->warna = $warna; }
     public function getWarna() { return $this->warna; }
+    public function setWarna($warna) { $this->warna = $warna; }
 
-    public function setStok($stok) { $this->stok = $stok; }
     public function getStok() { return $this->stok; }
+    public function setStok($stok) { $this->stok = $stok; }
 
-    public function setHargaBeli($harga) { $this->harga_beli = $harga; }
     public function getHargaBeli() { return $this->harga_beli; }
+    public function setHargaBeli($harga) { $this->harga_beli = $harga; }
 
-    public function setHargaJual($harga) { $this->harga_jual = $harga; }
     public function getHargaJual() { return $this->harga_jual; }
+    public function setHargaJual($harga) { $this->harga_jual = $harga; }
 
-    public function setDeskripsi($deskripsi) { $this->deskripsi = $deskripsi; }
     public function getDeskripsi() { return $this->deskripsi; }
-
-    // ===== CRUD METHODS =====
+    public function setDeskripsi($desk) { $this->deskripsi = $desk; }
 
     public function create() {
         $query = "INSERT INTO {$this->table} 
@@ -60,7 +61,7 @@ class Produk {
                     stok=:stok, harga_beli=:harga_beli, harga_jual=:harga_jual,
                     deskripsi=:deskripsi";
         
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         
         $stmt->bindParam(':id_kategori', $this->id_kategori);
         $stmt->bindParam(':kode_produk', $this->kode_produk);
@@ -81,7 +82,7 @@ class Produk {
                 LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
                 ORDER BY p.id_produk DESC";
         
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         $stmt->execute();
         return $stmt;
     }
@@ -117,7 +118,7 @@ class Produk {
                 stok=:stok, harga_beli=:harga_beli, harga_jual=:harga_jual,
                 deskripsi=:deskripsi
                 WHERE id_produk=:id_produk";
-        
+                
         $stmt = $this->conn->prepare($query);
         
         $stmt->bindParam(':id_kategori', $this->id_kategori);
@@ -149,11 +150,10 @@ class Produk {
                 LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
                 WHERE p.stok <= :limit
                 ORDER BY p.stok ASC";
-        
+                
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':limit', $limit);
         $stmt->execute();
         return $stmt;
     }
 }
-?>

@@ -30,6 +30,7 @@ if (!isset($produkList)) {
                     </div>
                     <div class="card-body">
                         
+                        <!-- PERBAIKAN: Ubah action dari "TransaksiController.php?action=create" menjadi "<?= $base_url ?>/Transaksi?action=create" -->
                         <form method="POST" action="<?= $base_url ?>/Transaksi?action=create">
                             
                             <div class="mb-3">

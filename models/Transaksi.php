@@ -1,4 +1,8 @@
 <?php
+namespace Models;
+
+use PDO;
+
 abstract class Transaksi {
     protected $conn;
     protected $table = "transaksi";
@@ -64,4 +68,3 @@ abstract class Transaksi {
         return $stmt;
     }
 }
-?>
